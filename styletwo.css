@@ -1,0 +1,144 @@
+h1 {
+	color: dimgray;
+	font-family: arial, sans-serif;
+	text-transform: capitalize;
+	font-size: 35px;
+
+}
+
+center {
+	width: 800px;
+}
+
+#title {
+	transition: 1s all ease;
+	position: absolute;
+	top: 50%;
+	left: calc(50% - 400px);
+	margin: auto;
+	display: block;
+}
+
+h2 {
+	color: dimgray;
+	font-family: arial, sans-serif;
+	font-size: 20px;
+}
+p {
+	font-family: arial, sans-serif;
+	text-transform: capitalize;
+	text-align: center;
+	color: darkred;
+}
+
+.changeButton {
+	visibility: hidden;
+}
+
+
+.visualBoxs {
+	width: 300px;
+	height: 200px;
+	margin: auto;
+	display: block;
+	transition: all ease 1s;
+	/*background-color: red;*/
+}
+
+
+#container {
+	display: flex;
+	margin: auto;
+	opacity: 0;
+	transition: all ease 1s;
+	margin-top: 14%;
+}
+
+.ranking {
+	visibility: hidden;
+}
+
+#next {
+	float: right;
+}
+
+
+.hist {
+	/*margin: 1em;*/
+	width: 80%;
+	height: 300px;
+	/*background-color: black;*/
+	/*border: 1px solid;*/
+	position: relative;
+	display: flex;
+}
+
+.bar {
+	position: absolute;	
+	width: 20%;
+	bottom: 0;
+	height: 0%;
+	/*background-color: darkred;*/
+	transition: all 0.3s ease;
+}
+
+.percent {
+	position: absolute;
+	display: block;
+	margin: auto;
+	transition: all 0.3s ease;
+	bottom: 0%;
+	/*text-align: center;*/
+}
+
+.p1 {
+	/*bottom: 40%;*/
+	left: 0%;
+}
+
+.p2 {
+	/*bottom: 30%;*/
+	left: 25%;
+}
+
+.p3 {
+	/*bottom: 80%;*/
+	left: 50%;
+}
+
+.p4 {
+	/*bottom: 70%;*/
+	left: 75%;
+}
+
+.b1 {
+	left: 0%;
+	/*height: 40%;*/
+	background-color: red;
+}
+
+.b2 {
+	left: 25%;
+	/*height: 30%;*/
+	background-color: yellow;
+}
+
+.b3 {
+	left: 50%;
+	/*height: 80%;*/
+	background-color: blue;
+}
+
+.b4 {
+	left: 75%;
+	/*height: 70%;*/
+	background-color: green;
+}
+
+}
+.wrapper {
+	background-color: whitesmoke;
+}
+.first {
+	text-indent: 100px;
+}

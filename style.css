@@ -1,0 +1,41 @@
+h1 {
+	color: dimgray;
+	font-family: arial, sans-serif;
+	text-transform: capitalize;
+	font-size: 35px;
+
+}
+
+h2 {
+	color: dimgray;
+	font-family: arial, sans-serif;
+	font-size: 20px;
+}
+p {
+	font-family: arial, sans-serif;
+	text-transform: capitalize;
+	text-align: center;
+	color: darkred;
+}
+	
+.visualBoxs {
+	width: 300px;
+	height: 200px;
+	margin: auto;
+	display: block;
+	/*background-color: red;*/
+}
+
+#container {
+	display: flex;
+	margin: auto;
+}
+
+
+}
+.wrapper {
+	background-color: whitesmoke;
+}
+.first {
+	text-indent: 100px;
+}

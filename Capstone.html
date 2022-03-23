@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html>
+ 
+<head>
+    <link rel="stylesheet" type="text/css"
+    href="style.css">
+
+    <title>HTML video autoplay Attribute</title>
+
+    <style> 
+        h1 {
+            text-transform: uppercase;
+        }
+
+        h2 {
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+ 
+<body>
+
+
+
+    <center>
+        <h1>Is Seeing Believing?</h1>
+ 
+        <h2>Match the Visual to the Song</h2>
+        
+<!--         <video width="400" height="200" controls autoplay>
+            <source src="visuals/placeholder.jpeg"type="">
+        </video> -->
+        <!-- <img width="400" height="200" src="visuals/placeholder.jpeg"></img> -->
+    </center>
+
+<div id="container">
+    <div class="group">
+        <div class="visualBoxs"></div>
+        <audio controls>
+        <source src="Sounds/Look Twice.wav" type="audio/wav">
+        </audio>
+        <button onclick="changeVisual(this)" class="changeButton">change</button>
+        <button onclick="hide(this)" class="changeButton">hide</button>
+    </div>
+
+    <div class="group">
+        <div class="visualBoxs"></div>
+        <audio controls>
+        <source src="Sounds/crying.wav" type="audio/wav">
+        </audio>
+        <button onclick="changeVisual(this)" class="changeButton">change</button>
+        <button onclick="hide(this)" class="changeButton">hide</button>
+    </div>
+
+    <div class="group">
+        <div class="visualBoxs"></div>
+        <audio controls>
+        <source src="Sounds/tired.wav" type="audio/wav">
+        </audio>
+        <button onclick="changeVisual(this)" class="changeButton">change</button>
+        <button onclick="hide(this)" class="changeButton">hide</button>
+    </div>
+
+    <div class="group">
+        <div class="visualBoxs"></div>
+        <audio controls>
+        <source src="Sounds/lovesong.wav" type="audio/wav">
+        </audio>
+        <button onclick="changeVisual(this)" class="changeButton">change</button>
+        <button onclick="hide(this)" class="changeButton">hide</button>
+    </div>
+</div>
+
+
+
+
+<script src="script.js"></script>
+</body>
+ 
+</html>
