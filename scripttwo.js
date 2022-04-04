@@ -7,43 +7,80 @@ if (!a2v) {
 		{
 			song: "Look Twice.wav",
 			visual: "looktwice.mp4",
-			first: 0,
-			second: 0,
-			third: 0,
-			fourth: 0
+			vote1: 0,
+			vote2: 0
 		},
 		{
 			song: "crying.wav",
 			visual: "crying.mp4",
-			first: 0,
-			second: 0,
-			third: 0,
-			fourth: 0
+			vote1: 0,
+			vote2: 0
 		},
 		{
 			song: "lovesong.wav",
 			visual: "feet.png",
-			first: 0,
-			second: 0,
-			third: 0,
-			fourth: 0
+			vote1: 0,
+			vote2: 0
+		},
+		{
+			song: "here.wav",
+			visual: "here.png",
+			vote1: 0,
+			vote2: 0
+		},
+		{
+			song: "crazy.wav",
+			visual: "hallway.mp4",
+			vote1: 0,
+			vote2: 0
 		},
 		{
 			song: "tired.wav",
 			visual: "tired.png",
-			first: 0,
-			second: 0,
-			third: 0,
-			fourth: 0
+			vote1: 0,
+			vote2: 0
 		}
 	];
 
 	localStorage.setItem("user_ranks", JSON.stringify(a2v));
 }
 
+function assignAudio() {
+	let container = document.getElementById("container");
+	let groups = container.children;
+	groups = Array.prototype.slice.call( groups );
+	groups.forEach(function(group,i) {
+		let css = '.visualBoxs:hover {filter: drop-shadow(8px 8px 10px black);cursor: pointer;opacity: 1 !important;}';
+		let style = document.createElement('style');
 
+		if (style.styleSheet) {
+    		style.styleSheet.cssText = css;
+		} else {
+    		style.appendChild(document.createTextNode(css));
+		}
+		document.getElementsByTagName('head')[0].appendChild(style);
+		let audioPath = "Sounds/" + a2v[i].song;
+		let audioBox = document.createElement('audio');
+		audioBox.className = 'songs';
+		audioBox.loop = true;
+		let audioSrc = document.createElement('source');
+		audioSrc.src = audioPath;
+		audioBox.appendChild(audioSrc);
+		group.appendChild(audioBox);
+		let visualBox = group.querySelector(".visualBoxs");
+		let playIcon = document.createElement('img');
+		playIcon.src = "visuals/play.png";
+		playIcon.style.width = "20%";
+		playIcon.style.position = "absolute";
+		playIcon.style.left = '40%';
+		playIcon.style.top = "40%";
+		playIcon.addEventListener("mouseover", (e) => playPause(e.fromElement));
+		playIcon.addEventListener("mouseout", (e) => playPause(e.fromElement.parentNode));
+		visualBox.appendChild(playIcon);
+	})
+}
 
-function assignAudioVisual() {
+function assignVisual() {
 	let container = document.getElementById("container");
 	let groups = container.children;
 	groups = Array.prototype.slice.call( groups );
@@ -53,7 +90,9 @@ function assignAudioVisual() {
 		// i is the index
 		// a2v[i] has the data
 		let visualBox = group.querySelector(".visualBoxs");
-		visualBox.style.opacity = 1;
+		visualBox.style.opacity = 0;
+		visualBox.removeChild(visualBox.firstElementChild);
+		
 		let path = "visuals/" + a2v[i].visual;
 		// visual part
 		if (path.slice(-1) == "v" || path.slice(-1) == "4") {
@@ -61,8 +100,7 @@ function assignAudioVisual() {
 			let video = document.createElement('video');
 			video.controls = false;
 			video.loop = true;
-			video.style.width = "70%";
-			video.style.height = "200px"
+			video.style.marginTop = "20%";
 			let src = document.createElement('source');
 			src.src = path;
 			video.appendChild(src);
@@ -71,20 +109,10 @@ function assignAudioVisual() {
 			console.log('image');
 			let img = document.createElement('img');
 			img.src = path;
-			img.style.width = "70%";
 			visualBox.appendChild(img);
 		}
-		let button = group.querySelector('.changeButton');
-		hide(button);
-		// audio part
-		let audioPath = "Sounds/" + a2v[i].song;
-		let audioBox = document.createElement('audio');
-		audioBox.className = 'songs';
-		audioBox.loop = true;
-		let audioSrc = document.createElement('source');
-		audioSrc.src = audioPath;
-		audioBox.appendChild(audioSrc);
-		group.appendChild(audioBox);
+		visualBox.firstChild.addEventListener("mouseover", (e) => playPause(e.path[0].parentNode));
+		visualBox.firstChild.addEventListener("mouseout", (e) => playPause(e.path[0].parentNode));
 	})
 }
 
@@ -99,9 +127,14 @@ shuffleArray(a2v);
 
 console.log('shuffled', a2v);
 
-assignAudioVisual();
 
 
+function voteSong() {
+	let parent = this.parentNode.parentNode;
+	let index = Array.prototype.indexOf.call(parent.children, this.parentNode);
+	a2v[index].vote1 += 1;
+	next();
+}
 
 
 
@@ -114,125 +147,119 @@ function next() {
 	let container = document.getElementById("container");
 	let groups = container.children;
 	let question = document.getElementById("question");
+	let title = document.getElementById('title');
 	groups = Array.prototype.slice.call( groups );
+	let total = 0;
+		groups.forEach((group,i) => {
+			total += a2v[i].vote1;
+		});
 	if (state == 0) {
 		container.style.opacity = 1;
-		let title = document.getElementById('title');
+		question.innerHTML = "hover to play songs";
 		title.style.top = "2%";
+		assignAudio();
 	}
+
 	else if (state == 1) {
-		question.innerHTML = "Click to show visuals";
-		groups.forEach(function(group,i) {
-			let hideButton = group.querySelector('.changeButton');
-			hideButton.style.visibility = 'visible';
-			hide(hideButton);
+		question.innerHTML = "click to choose your favorite song";
+		groups.forEach(function(group,i){
 			let visualBox = group.querySelector(".visualBoxs");
-			visualBox.style.opacity = 0;
+			visualBox.addEventListener("click", voteSong);
+		})
+	}
+
+	else if (state == 2) {
+		question.innerHTML = "favorite songs by percentage of users";
+		groups.forEach(function(group,i){
+			let visualBox = group.querySelector(".visualBoxs");
+			visualBox.removeEventListener("click", voteSong);
+			setTimeout(() => {
+				visualBox.style.transform = "scale(0.4)";
+				let hist = group.querySelector(".hist");
+				let p = hist.querySelector(".percent");
+				let num = ((a2v[i].vote1 / total) * 100).toFixed(1);
+				p.innerHTML = `${num}%`;
+			}, 300);
+		})
+	}
+
+	else if (state == 3) {
+		assignVisual();
+		question.innerHTML = "hover to show visuals";
+		groups.forEach(function(group,i) {
+			let visualBox = group.querySelector(".visualBoxs");
+			visualBox.style.transform = "scale(1)";
+			let p = group.querySelector(".hist").querySelector(".percent");
+			p.innerHTML = "";
 			let audio = group.querySelector('audio');
 			audio.currentTime = 0;
 			let video = group.querySelector('video');
 			if (video) video.currentTime = 0;
 		})
 	}
-	else if (state == 2) {
-		
-		question.innerHTML = "Which audiovisual situation do you like the best? (1= Favorite, 4= Least Favorite)";
-		// document.body.appendChild(question);
-		groups.forEach(function(group){
-			let form = group.querySelector('.ranking');
-			form.style.visibility = 'visible';
+	else if (state == 4) {
+		document.getElementById('next').style.visibility = "hidden";
+		question.innerHTML = "now click to choose your favorite audiovisual situation";
+		groups.forEach(function(group,i){
+			let visualBox = group.querySelector(".visualBoxs");
+			visualBox.style.opacity = "0.3";
+			visualBox.addEventListener("click", () => {
+				a2v[i].vote2 += 1;
+				console.log(a2v[i]);
+				next();
+			});
+
 		})
 	}
-	else if (state == 3) {
+	else if (state == 5) {
+		document.getElementById('next').style.visibility = "visible";
+		question.innerHTML = "favorite situations by percentage of users";
 		groups.forEach(function(group,i){
-			let form  = group.querySelector('.ranking');
-			let select = form.querySelector('select');
-			switch(select.value) {
-				case "1":
-					a2v[i].first += 1
-					break;
-				case "2":
-					a2v[i].second += 1
-					break;
-				case "3":
-					a2v[i].third += 1
-					break;
-				case "4":
-					a2v[i].fourth += 1
-					break;
-			}
-			let hist = group.querySelector('.hist');
-			let total = a2v[i].first + a2v[i].second + a2v[i].third + a2v[i].fourth;
-			let first_percentage = ((a2v[i].first / total)*100).toFixed(1);
-			let second_percentage = ((a2v[i].second / total)*100).toFixed(1);
-			let third_percentage = ((a2v[i].third / total)*100).toFixed(1);
-			let fourth_percentage = ((a2v[i].fourth / total)*100).toFixed(1);
-			let b1 = hist.querySelector('.b1');
-			b1.style.height = `${first_percentage}%`;
-			let b2 = hist.querySelector('.b2');
-			b2.style.height = `${second_percentage}%`;
-			let b3 = hist.querySelector('.b3');
-			b3.style.height = `${third_percentage}%`;
-			let b4 = hist.querySelector('.b4');
-			b4.style.height = `${fourth_percentage}%`;
-
-			let p1 = hist.querySelector('.p1');
-			p1.style.bottom = `${first_percentage}%`;
-			p1.innerHTML = `${first_percentage}%`;
-			let p2 = hist.querySelector('.p2');
-			p2.style.bottom = `${second_percentage}%`;
-			p2.innerHTML = `${second_percentage}%`;
-			let p3 = hist.querySelector('.p3');
-			p3.style.bottom = `${third_percentage}%`;
-			p3.innerHTML = `${third_percentage}%`;
-			let p4 = hist.querySelector('.p4');
-			p4.style.bottom = `${fourth_percentage}%`;
-			p4.innerHTML = `${fourth_percentage}%`;
+			let visualBox = group.querySelector(".visualBoxs");
+			setTimeout(() => {
+				visualBox.style.transform = "scale(0.4)";
+				let hist = group.querySelector(".hist");
+				let p = hist.querySelector(".percent");
+				let num = ((a2v[i].vote2 / total) * 100).toFixed(1);
+				p.innerHTML = `${num}%`;
+			}, 300);
 		});
 		
 		// send the data to local storage
 		localStorage.setItem("user_ranks", JSON.stringify(a2v));
 		console.log(a2v);
 	}
-	else {
-		return
+	else if (state == 6){
+		container.style.visibility = 'hidden';
+		
+		document.getElementById('next').style.visibility = "hidden";
+		title.style.top = "45%";
+		let h1 = title.querySelector('h1');
+		//title.innerHTML = "while we may not always realize it..."
+		h1.style.fontSize = "1.5em";
+		question.innerHTML = "visuals impact our musical perceptions much more than we think...";
+		h1.innerHTML = "while we may not always realize it...";
 	}
 	
 
 }
 
 
-function playPause(b) {
-	// console.log(b);
-	let visualBox = b.parentNode.querySelector(".visualBoxs");
+function playPause(e) {
+	console.log(e);
+	let visualBox = e;
 	let video = visualBox.querySelector('video');
-	console.log(video);
-	let audioBox = b.parentNode.querySelector(".songs");
+	let audioBox = e.parentNode.querySelector(".songs");
+	console.log(audioBox.paused);
   if (audioBox.paused) {
-  	b.innerHTML = "pause";
   	audioBox.play();
   	if (video) {
   		if (video.paused) video.play();
   	}
   }else {
-  	b.innerHTML = "play";
   	audioBox.pause();
   	if (video) {
   		if (!video.paused) video.pause();
   	}
   }
-}
-
-
-function hide(b) {
-	let visualBox = b.parentNode.querySelector(".visualBoxs");
-	// console.log(visualBox.style);
-	if (visualBox.style.opacity == 1) {
-		// b.innerHTML = "hide";
-		visualBox.style.opacity = 0;
-	} else {
-		
-		// b.innerHTML = "show visual";
-		visualBox.style.opacity = 1;
-	}
 }
