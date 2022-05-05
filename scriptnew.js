@@ -15,6 +15,7 @@ const typing3 = "hover to play songs";
 const TYPING_SPEED = 30;
 
 
+
 let state = -1;
 
 let table = JSON.parse(localStorage.getItem('table'));
@@ -81,6 +82,29 @@ const staticOrder = {
 	"tired.wav": 5,
 	"tired.png": 5
 };
+
+async function loadMedia() {
+	let path = Object.keys(staticOrder);
+	for (let i = 0; i < path.length; i++) {
+		p = path[i];
+		let fileType = p.slice(-4);
+		if (fileType === ".wave") {
+			let fileRef = new Audio(`Sounds/${p}`);
+			fileRef.load();
+		} else if (fileType === ".mp4") {
+			let fileRef = document.createElement("video");
+			fileRef.setAttribute("src", `visuals/${p}`); 
+			fileRef.load();
+		} else if (fileType === ".jpg" || fileType === ".png") {
+			const fileRef = new Image();
+			fileRef.src = `visuals/${p}`;
+			await fileRef.decode();
+		}
+	}
+}
+
+loadMedia();
+
 
 const songIndex = [
 	"look twice.wav",

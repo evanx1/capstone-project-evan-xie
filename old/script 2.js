@@ -2,7 +2,7 @@
 
 let previous = 0;
 
-const visuals = ["Look Twice.mp4", "cryingmv.mp4 " "placeholder.jpeg", "temporary.jpeg"];
+// const visuals = ["Look Twice.mp4", "cryingmv.mp4 " "placeholder.jpeg", "temporary.jpeg"];
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);

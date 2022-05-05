@@ -3,7 +3,7 @@
  
 <head>
     <link rel="stylesheet" type="text/css"
-    href="styletwo.css">
+    href="stylenew.css">
 
     <title>HTML video autoplay Attribute</title>
 
@@ -20,69 +20,83 @@
  
 <body>
 
-
-
     <center id='title'>
-        <h1 >Seeing is Believing</h1>
- 
-        <h2 id="question"></h2>
-        
-<!--         <video width="400" height="200" controls autoplay>
-            <source src="visuals/feet.png"type="">
-        </video> -->
-        <!-- <img width="400" height="200" src="visuals/feet.png"></img> -->
+            <h1 >Visually Sound</h1>
+     
+            <h2 id="question"></h2>
+
+            <h2 id="undersentence"></h2>
+
+            
     </center>
 
-<div id="container">
-    <div class="group">
-        <div class="visualBoxs"></div>
-        <div class="hist">
-            <p class="percent"></p>
-        </div>        
-    </div>
+    <video id="instructions" loop>
+                <source src="visuals/instructions.mp4"><source>
+    </video>
 
-    <div class="group">
-        <div class="visualBoxs"></div>
-        <div class="hist">
-            <p class="percent"></p>
+    <div id="container">
+        <div class="group">
+            <div class="dot"></div>
+            <div class="visualBoxs"></div>
+            <div class="hist">
+                <p class="percent"></p>
+            </div>
+            <p class="textBox"></p>        
+        </div>
+
+        <div class="group">
+            <div class="dot"></div>
+            <div class="visualBoxs"></div>
+            <div class="hist">
+                <p class="percent"></p>
+            </div>
+            <p class="textBox"></p>
+        </div>
+
+        <div class="group">
+            <div class="dot"></div>
+            <div class="visualBoxs"></div>
+            <div class="hist">
+                <p class="percent"></p>
+            </div> 
+            <p class="textBox"></p>
+        </div>
+
+        <div class="group">
+            <div class="dot"></div>
+            <div class="visualBoxs"></div>
+            <div class="hist">
+                <p class="percent"></p>
+            </div> 
+            <p class="textBox"></p>
+        </div>
+
+        <div class="group">
+            <div class="dot"></div>
+            <div class="visualBoxs"></div>
+            <div class="hist">
+                <p class="percent"></p>
+            </div> 
+            <p class="textBox"></p>
+        </div>
+
+        <div class="group">
+            <div class="dot"></div>
+            <div class="visualBoxs"></div>
+            <div class="hist">
+                <p class="percent"></p>
+            </div> 
+            <p class="textBox"></p>
         </div>
     </div>
 
-    <div class="group">
-        <div class="visualBoxs"></div>
-        <div class="hist">
-            <p class="percent"></p>
-        </div> 
-    </div>
+    <button id="next" onclick="next(this)">
+        <img src="visuals/arrow.png" style="width: 50px;"></img>
+    </button>
 
-    <div class="group">
-        <div class="visualBoxs"></div>
-        <div class="hist">
-            <p class="percent"></p>
-        </div> 
-    </div>
+    <script src="funcs.js"></script>
+    <script src="scriptnew.js"></script>
 
-    <div class="group">
-        <div class="visualBoxs"></div>
-        <div class="hist">
-            <p class="percent"></p>
-        </div> 
-    </div>
-
-    <div class="group">
-        <div class="visualBoxs"></div>
-        <div class="hist">
-            <p class="percent"></p>
-        </div> 
-    </div>
-</div>
-
-<button id="next" onclick="next()">
-    <img src="visuals/arrow.png" style="width: 50px;"></img>
-</button>
-
-
-<script src="scripttwo.js"></script>
 </body>
  
 </html>
