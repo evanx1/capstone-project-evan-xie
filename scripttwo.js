@@ -169,7 +169,7 @@ function next() {
 	}
 
 	else if (state == 2) {
-		question.innerHTML = "favorite songs by percentage of users";
+		question.innerHTML = "Great choice! here's what other people chose";
 		groups.forEach(function(group,i){
 			let visualBox = group.querySelector(".visualBoxs");
 			visualBox.removeEventListener("click", voteSong);
@@ -185,7 +185,7 @@ function next() {
 
 	else if (state == 3) {
 		assignVisual();
-		question.innerHTML = "hover to show visuals";
+		question.innerHTML = "now hover to show visuals";
 		groups.forEach(function(group,i) {
 			let visualBox = group.querySelector(".visualBoxs");
 			visualBox.style.transform = "scale(1)";
@@ -199,7 +199,7 @@ function next() {
 	}
 	else if (state == 4) {
 		document.getElementById('next').style.visibility = "hidden";
-		question.innerHTML = "now click to choose your favorite audiovisual situation";
+		question.innerHTML = "click to choose your favorite audiovisual situation";
 		groups.forEach(function(group,i){
 			let visualBox = group.querySelector(".visualBoxs");
 			visualBox.style.opacity = "0.3";
